@@ -32,3 +32,7 @@ gameobject, which then can be enabled or disabled when needed
 The MLEventSystem is a script that takes input from the ML API and the custom input module to determine what is being pointed at,
 what is selected, what is being dragged, etc, and sends related events to those objects so they can react individually. MLEventData
 outlines the interfaces that must be satisfied in order for a callback from the event system to be recieved
+
+## Contributions
+If something brokoe and you want it fixed, create an issue report.
+If you want to add something to the tools, I guess make a branch and go to town.
