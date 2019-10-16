@@ -12,62 +12,47 @@ using UnityEngine.XR.MagicLeap;
 
 namespace MtsuMLAR
 {
+    /// <summary>
+    /// The MLEventSystem takes info from the Input module and determines when certain events need
+    /// to be fired and at which objects. It calls the event only if the object has a script that 
+    /// implements the matching interface.
+    /// </summary>
     [RequireComponent(typeof(MLInputModuleV2))]
     public class MLEventSystem : MonoBehaviour
     {
-        //public static MLEventSystem current = null;
-
-        //enum to for the state variable type governing primary button
         enum clickButton { trigger, bumper }
 
         #region Private Variables
         [SerializeField, Tooltip("Sets primary click, secondary click auto set")]
-        private clickButton primaryClick = clickButton.trigger;
+        private clickButton primaryClick;
 
-        /// <summary>
-        /// These variables are used in the Event System decision structure,
-        /// and also allow other objects current selected/targetted
-        /// objects, as well as the state of the event system.
-        /// </summary>
-        private GameObject lastHitObject = null;      //This object is what the system considers as hit, and is used to compare to the raycaster value to determine transistions
-        private GameObject lastSelectedObject = null; //This is the object the system considers as selected
-        private bool isDragging = false;              //Flag which causes the system to stop checking some things until draggin stops, also used by Raycaster
-        private GameObject draggedObject = null;
-        private GameObject clickDownObject = null;    //The object the button was pressed down own. Used to check if it is released on the same object
+        private GameObject lastHitObject = null;      //Object hit last frame, compared to the InputModule current hit to determine transitions
+        private GameObject lastSelectedObject = null; //Object considered selected
+        private bool isDragging = false;              //Drag Flag, bypasses some logic and is used by some external scripts
+        private GameObject draggedObject = null;      //Object currently being dragged
+
+        private GameObject clickDownObject = null;    //Used to see if a button is released on the same object
         private GameObject click_2_DownObject = null;
-        private float bumperTimer;                    //These time the interval between a down and an up event, allowing it to be processed as a click or not
-        private bool bumperHeld = false;
+        private float bumperTimer;                    //Time between button down and up, used to see if a button up event is considered a click
         private float triggerTimer;
+        private MLEventData eventData;                //Data sent to objects when events are called
 
-        //Object references used to obtain data like raycast state or controller events
-        //[SerializeField,Tooltip("The Scene Raycaster, typically on the controller, used to select objects")]
-        //private Raycaster _raycaster = null;
-        private MLInputModuleV2 inputModule;
-        MLInputController _controller;
+        private MLInputModuleV2 inputModule;          //Script that determines what is being pointed at based on current input method
 
-        /*Data sent to handlers when they are called, has information about the hit
-         * It is defined in the MtsuMLAR Namespace*/
-        private MLEventData eventData;
+        private MLInputController _controller;                //Object used to access controller events
 
-        /// <summary>
-        /// These references are called every frame when the conditions are met.
-        /// So instead of Reusing GetComponent<>() Every Frame, they are cached to be
-        /// reused.
-        /// </summary>
-        private IMLPointerStayHandler stayHandler;
+        /// Variables to cache references to event handlers called every frame,
+        /// so calling GetComponent() every frame can be avoided
+        private IMLPointerStayHandler stayHandler = null;
         private IMLUpdateSelectedHandler updateSelectedHandler = null;
-        private IMLInitializePotentialDragHandler potentialDragHandler;
-        private IMLDragHandler dragHandler;
+        private IMLInitializePotentialDragHandler potentialDragHandler = null;
+        private IMLDragHandler dragHandler = null;
 
         [SerializeField, Tooltip("Set the time window in which a click must be completed for it to register")]
         private float clickWindow = 0.8f;
         #endregion
 
-        #region Properties
-        /// <summary>
-        /// Accesible by other objects, lets them interact with objects labeled
-        /// by the event system.
-        /// </summary>
+        #region Public Properties
         public GameObject LastHitObject { get => lastHitObject; }
         public GameObject LastSelectedObject { get => lastSelectedObject; }
         public bool IsDragging { get => isDragging; }
@@ -77,19 +62,8 @@ namespace MtsuMLAR
         #region Unity Methods
         private void Awake()
         {
-            //if (_raycaster == null)
-            //{
-            //    Debug.LogError("No Raycaster assigned to the MLEventSystem, disabling");
-            //    enabled = false;
-            //}
-
+            primaryClick = clickButton.trigger;
             eventData = new MLEventData();
-
-            //Set up the Singleton
-            //if (current == null)
-            //    current = this;
-            //else if (current != this)
-            //    Destroy(gameObject);
         }
 
         // Start initializes references, the MLInput API, and event subscriptions
@@ -102,6 +76,15 @@ namespace MtsuMLAR
             }
 
             _controller = MLInput.GetController(MLInput.Hand.Left);
+            if(_controller == null)
+            {
+                _controller = MLInput.GetController(MLInput.Hand.Right);
+                if(_controller == null)
+                {
+                    Debug.LogWarning("Couldn't get a reference to the Controller, disabling MLEventSystem");
+                    enabled = false;
+                }
+            }
 
             MLInput.OnControllerButtonDown += ControllerButtonDownHandler;
             MLInput.OnControllerButtonUp += ControllerButtonUpHandler;
@@ -109,10 +92,13 @@ namespace MtsuMLAR
             MLInput.OnTriggerUp += TriggerUpHandler;
 
             inputModule = GetComponent<MLInputModuleV2>();
-            //DontDestroyOnLoad(current.gameObject);
+            if(inputModule == null)
+            {
+                Debug.LogWarning("Couldn't get a reference to the InputModule, disabling script");
+                enabled = false;
+            }
         }
 
-        //This manages memory, ensuring no leftover event subscriptions
         private void OnDestroy()
         {
             MLInput.OnControllerButtonDown -= ControllerButtonDownHandler;
@@ -124,59 +110,55 @@ namespace MtsuMLAR
         }
 
         /// <summary>
-        /// Update is primarily responsible for taking hitobject output from the raycaster
-        /// and determining when an object is being pointed at, and what transitions have 
-        /// occured, and then calls the necessary event handlers. it also calls event 
-        /// handlers when they have updates every frame, like Drag.
+        /// The update function takes the current hit object from the input module and compares it
+        /// to the last hit object in order to detect transitions and call necessary events.
         /// </summary>
         void Update()
         {
             UpdateEventData(eventData);
-            //If we are dragging, then we aren't interrested in interacting with new objects
+
+            //If we are dragging, then we aren't interested in interacting with new objects
             if (!isDragging)
             {
-                /*Only continue if the raycaster is in the correct state. This makes sure objects aren't sent 
-                 * events When interacting with a UI element in front of it*/
                 if (inputModule.CurrentHitState != MLInputModuleV2.HitState.NoHit)
                 {
-                    GameObject hitObject;
-                    //This sets the reference to the raycaster hitobject, this is the object that is evaluated.
-                    if (SearchForEventHandlerInAncestors(inputModule.PrimaryHitObject) == null)
+                    //The current hit object to compare with
+                    GameObject hitObject = SearchForEventHandlerInAncestors(inputModule.PrimaryHitObject);
+                    if (hitObject == null)
                         hitObject = inputModule.PrimaryHitObject;
-                    else
-                        hitObject = SearchForEventHandlerInAncestors(inputModule.PrimaryHitObject);
-                    //This is checking if we transitioned from hitting nothing to now hitting an object
+
+                    //Hit new object
                     if (lastHitObject == null)
                     {
-                        //This checks if the hit object has an appropriate handler, and that it has methods subscribed before calling it
+                        //Call handler if it exists
                         IMLPointerEnterHandler enterHandler = hitObject.GetComponent<IMLPointerEnterHandler>();
                         if (enterHandler != null)
                         {
                             enterHandler.MLOnPointerEnter(eventData);
                         }
-                        //This sets upt the cached reference to the Stay handler so that GetComponent isn't called every frame
+                        //cache handler reference to be called every frame
                         stayHandler = hitObject.GetComponent<IMLPointerStayHandler>();
                         lastHitObject = hitObject;
                     }
-                    //This is checking if we are still pointing at the same object
+                    //Hit same object
                     else if (hitObject == lastHitObject)
                     {
-                        //Check stay handler and call
+                        //Call handler if it exists
                         if (stayHandler != null)
                         {
                             stayHandler.MLOnPointerStay(eventData);
                         }
                     }
-                    else //We are now hitting a new object, so we call the exit handler on the previous hit object
+                    else //We left an object
                     {
-                        //check and call the handler
+                        //Call handler if it exists
                         IMLPointerExitHandler exitHandler = lastHitObject.GetComponent<IMLPointerExitHandler>();
                         if (exitHandler != null)
                         {
                             exitHandler.MLOnPointerExit(eventData);
                         }
-                        //By setting this to null, the next update the system will call the enter handler on the new object
-                        lastHitObject = null;
+                        
+                        lastHitObject = null; //This causes 
                     }
                 }
                 else //If the raycaster is not hitting an object, but a UI element or nothing, then do this:
@@ -193,14 +175,6 @@ namespace MtsuMLAR
                         lastHitObject = null;
                     }
                 }
-
-                //Place the scene if held bumper, BAD HARDOCDE
-                //if(_controller.IsBumperDown && Time.time - bumperTimer > 2.0f && bumperHeld == false)
-                //{
-                //    _controller.StartFeedbackPatternVibe(MLInputControllerFeedbackPatternVibe.Bump, MLInputControllerFeedbackIntensity.Low);
-                //    ContentManipulation.current?.PlaceContentRelativeToCamera();
-                //    bumperHeld = true;
-                //}
             }
             else  //isDragging == true
             {
@@ -380,7 +354,6 @@ namespace MtsuMLAR
             //Controller verification, make sure the bumper is the one that was pressed
             if (_controller != null && _controller.Id == controllerID && button == MLInputControllerButton.Bumper)
             {
-                bumperHeld = bumperHeld ? !bumperHeld : bumperHeld;
                 UpdateEventData(eventData);
                 //Only call these if not dragging
                 if (!isDragging)
