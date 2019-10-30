@@ -6,16 +6,13 @@ using UnityEngine.XR.MagicLeap;
 namespace MtsuMLAR
 {
     /// <summary>
-    /// This class manages input from the magic leap into objects with event handlers. 
-    /// It allows different input methods paired with different input tools to generate
-    /// a variety of input schemes
+    /// This Class takes raw position and orientation data from the Magic Leap
+    /// API, combines it with the set input tool and method to determine whaat object
+    /// is considered hit (like when a mouse is over a button).
     /// **THIS CURRENTLY DOES NOT WORK WITH HANDS, CONECAST, OR SWITCHING BETWEEN INPUT TYPES AT RUNTIME**
     /// </summary>
     public class MLInputModuleV2 : MonoBehaviour
     {
-        //Singleton instance
-        //public static MLInputModuleV2 instance;
-
         #region Enums
         //defines how objects are targeted, whether by ray or proximity
         public enum InputMethod { Raycast, Conecast, ProximitySphere};
@@ -23,11 +20,10 @@ namespace MtsuMLAR
         //This indicates what object is used as the origin for the input methods
         public enum InputTool { Controller, LeftHand, RightHand};
 
-        //Stores current State of the input module
         public enum HitState { ObjectHit, NoHit};
         #endregion
 
-        #region Private Variables
+        #region Variables
         //Input Configuration Variables
         private InputMethod currentInputMethod = InputMethod.Raycast;
         private InputTool currentInputTool = InputTool.Controller;
@@ -38,24 +34,21 @@ namespace MtsuMLAR
         public GameObject rightHandObject = null;
         public GameObject leftHandObject = null;
 
-        //The size of the proximity sphere that triggers interaction
-        private float proximitySphereradius = 0.2f;
+        private float proximitySphereradius = 0.2f;       //The size of the proximity sphere if needed
 
-        //Stores objects targetted by the input module
-        private List<GameObject> allHitObjects = null;
-        //Object most likely to be interacted with
-        private GameObject primaryHitObject;
-        //Hit distance for a raycast, distance to transform of hit object for a proximity sphere
-        private float primaryHitObjectDistance;
+        private List<GameObject> allHitObjects = null;    //Stores objects targetted by the input module
+        private GameObject primaryHitObject;              //Object most likely to be interacted with, typically the closest
+        private float primaryHitObjectDistance;           //Hit distance for a raycast, distance to transform of hit object for a proximity sphere
+        private RaycastHit curRayHit;                     //The Raycast hit, used for finding intersection of raycast
         #endregion
 
         #region Properties
         //These will eventually be expanded to allowing setting of input types, allowing other scripts to modify input behavior at runtime
         public InputMethod CurrentInputMethod { get => currentInputMethod; set => currentInputMethod = value; }
         public InputTool CurrentInputTool { get => currentInputTool; set => currentInputTool = value; }
-        //Gets a reference to whatever object is selected as the primary input tool
         public GameObject PrimaryInputPointerObject
         {
+            //Gets a reference to whatever object is selected as the primary input tool
             get
             {
                 switch(currentInputTool)
@@ -64,14 +57,16 @@ namespace MtsuMLAR
                         return leftHandObject;
                     case InputTool.RightHand:
                         return rightHandObject;
-                    default:
+                    case InputTool.Controller:
                         {
-                            if(controllerObject == null)
+                            if (controllerObject == null)
                             {
                                 controllerObject = GameObject.Find("Controller");
                             }
                             return controllerObject;
                         }
+                    default:
+                        return null;
                 }
             }
         }
@@ -83,17 +78,12 @@ namespace MtsuMLAR
         public List<GameObject> AllHitObjects { get => allHitObjects; }
         public GameObject PrimaryHitObject { get => primaryHitObject; }
         public float PrimaryHitObjectDistance { get => primaryHitObjectDistance; }
+        public RaycastHit CurRayHit { get => curRayHit; }
         #endregion
 
         #region Unity Methods
         private void Awake()
         {
-            //Singleton Setup
-            //if (instance == null)
-            //    instance = this;
-            //else if (instance != this)
-            //    Destroy(this);
-
             //Setup based on what is selected for input
             switch (currentInputTool)
             {
@@ -137,7 +127,7 @@ namespace MtsuMLAR
         }
 
         /// <summary>
-        /// Selection hits arre put into late update to make sure all other objects have finished moving
+        /// Selection hits are put into late update to make sure all other objects have finished moving
         /// before we check to see if they are being targetted, reducing glitchy selection behavior
         /// </summary>
         private void LateUpdate()
@@ -147,13 +137,7 @@ namespace MtsuMLAR
             {
                 case InputMethod.Raycast:
                     {
-                        if (currentInputTool == InputTool.Controller)
-                            hit = Raycast(controllerObject.transform);
-                        else
-                            //add Hand or Headpose implementation of control later
-#pragma warning disable CS0642 // Possible mistaken empty statement
-                            ;
-#pragma warning restore CS0642 // Possible mistaken empty statement
+                        hit = Raycast(PrimaryInputPointerObject.transform);
                         break;
                     }
                 case InputMethod.ProximitySphere:
@@ -175,12 +159,12 @@ namespace MtsuMLAR
 
         #region Private Methods
         /// <summary>
-        /// Performs a raycast from the origin in its forward direction, 
+        /// Performs a raycast from the origin in the forward direction, 
         /// and returns true if it hit anything. It also updates the hitobject
-        /// list and primary object distance based on the raycastHit distance
+        /// list and primary object distance
         /// </summary>
         /// <param name="origin">Source and forward direction of the raycast</param>
-        /// <returns></returns>
+        /// <returns>True if it did hit something, False if it hit nothing</returns>
         private bool Raycast(Transform origin)
         {
             //Reset list of hit objects
@@ -190,39 +174,22 @@ namespace MtsuMLAR
             //If we hit something, then add to our lists nd check for the closest one
             if (hits.Length > 0)
             {
+                RaycastHit testHit = hits[0];
                 GameObject closestObject = hits[0].transform.gameObject;
                 float closestDistance = hits[0].distance;
                 for (int i = 0; i < hits.Length; i++)
                 {
-                    //GameObject searchedObject = SearchForEventHandlerInAncestors(hits[i].transform.gameObject);
-                    //if (searchedObject == null)
-                    //{
-                    //    allHitObjects.Add(hits[i].transform.gameObject);
-                    //    if (closestDistance > hits[i].distance)
-                    //    {
-                    //        closestObject = hits[i].transform.gameObject;
-                    //        closestDistance = hits[i].distance;
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    allHitObjects.Add(searchedObject);
-                    //    if (closestDistance > hits[i].distance)
-                    //    {
-                    //        closestObject = searchedObject;
-                    //        closestDistance = hits[i].distance;
-                    //    }
-                    //}
-
                     allHitObjects.Add(hits[i].transform.gameObject);
                     if(hits[i].distance < closestDistance)
                     {
                         closestObject = hits[i].transform.gameObject;
                         closestDistance = hits[i].distance;
+                        testHit = hits[i];
                     }
                 }
                 primaryHitObject = closestObject;
                 primaryHitObjectDistance = closestDistance;
+                curRayHit = testHit;
                 currentHitState = HitState.ObjectHit;
                 return true;
             }
@@ -241,8 +208,7 @@ namespace MtsuMLAR
         public void AddProximityObject(GameObject go)
         {
             allHitObjects.Add(go);
-            if ((go.transform.position - controllerObject.transform.position).sqrMagnitude < (primaryHitObject.transform.position - controllerObject.transform.position).sqrMagnitude)
-                primaryHitObject = go;
+            CheckProximity();
         }
 
         /// <summary>
@@ -268,10 +234,14 @@ namespace MtsuMLAR
         /// </summary>
         private void CheckProximity()
         {
+            primaryHitObject = allHitObjects[0];
             foreach(GameObject go in allHitObjects)
             {
                 if ((go.transform.position - controllerObject.transform.position).sqrMagnitude < (primaryHitObject.transform.position - controllerObject.transform.position).sqrMagnitude)
+                {
                     primaryHitObject = go;
+                    primaryHitObjectDistance = (go.transform.position - controllerObject.transform.position).magnitude;
+                }
             }
         }
         #endregion
