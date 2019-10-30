@@ -9,8 +9,8 @@ Magic Leap Dev Tools is a package that has some basic reusable tools to make dev
 And the hope is to add more. 
 
 ### Requirements
-This package was developed in Unity 2019.2, with MLSDK v 0.22.0, with magic leap os version 0.97
-To make sure your development progress is smooth, please make sure your version are minimally at this level.
+This package was developed in Unity 2019.2, with MLSDK v 0.22.0, with Magic Leap OS version 0.97
+To make sure your development progress is smooth, please make sure your versions are minimally at this level.
 
 ## Installation
 To immediately get started using the tools, just download the project and find the unitypackage file named DevToolsPackage, make
@@ -34,5 +34,5 @@ what is selected, what is being dragged, etc, and sends related events to those 
 outlines the interfaces that must be satisfied in order for a callback from the event system to be recieved
 
 ## Contributions
-If something brokoe and you want it fixed, create an issue report.
+If something broke and you want it fixed, create an issue report.
 If you want to add something to the tools, I guess make a branch and go to town.
