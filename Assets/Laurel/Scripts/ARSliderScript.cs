@@ -34,10 +34,14 @@ namespace MtsuMLAR
          * in my case the time mulitiplier (can be hardcoaded for testing)
          */
 
+        public float value = 0; //this is to test the slider. Will proabably make this a property later when I figure out how to make this actually /do/ something.
 
+        //This will move the ball and change the value
         private void MoveTheBall(float xPosition)
         {
-        transform.GetChild(0).position = new Vector3(xPosition, 0, 0);
+            transform.GetChild(0).position = new Vector3(xPosition, 0, 0);
+
+            value = xPosition;
         }
 
         #region Event Handlers
