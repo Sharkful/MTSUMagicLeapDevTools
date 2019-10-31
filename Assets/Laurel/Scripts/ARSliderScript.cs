@@ -39,7 +39,7 @@ namespace MtsuMLAR
         //This will move the ball and change the value
         private void MoveTheBall(float xPosition)
         {
-            transform.GetChild(0).position = new Vector3(xPosition, 0, 0);
+            transform.GetChild(0).position = new Vector3(0,0,xPosition);
 
             value = xPosition;
         }
@@ -73,7 +73,7 @@ namespace MtsuMLAR
              * something else might change based on that but I need to think about that.
              */
             
-            MoveTheBall(transform.InverseTransformPoint(eventData.CurRayHit.point).x);
+            MoveTheBall(transform.InverseTransformPoint(eventData.CurRayHit.point).z);
         }
 
         public void MLOnEndDrag(MLEventData eventData)
