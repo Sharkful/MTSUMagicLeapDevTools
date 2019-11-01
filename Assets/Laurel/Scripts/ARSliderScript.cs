@@ -39,7 +39,7 @@ namespace MtsuMLAR
         //This will move the ball and change the value
         private void MoveTheBall(float xPosition)
         {
-            transform.GetChild(0).position = new Vector3(0,0,xPosition);
+            transform.GetChild(0).localPosition = new Vector3(0, xPosition, 0);
 
             value = xPosition;
         }
@@ -57,7 +57,11 @@ namespace MtsuMLAR
 
         public void MLOnBeginDrag(MLEventData eventData)
         {
-            //not convinced I actually need this
+            /*Need to:
+             * Turn off snappy curser
+             * Make a plane (Maybe)
+             */
+                
 
         }
 
@@ -73,12 +77,14 @@ namespace MtsuMLAR
              * something else might change based on that but I need to think about that.
              */
             
-            MoveTheBall(transform.InverseTransformPoint(eventData.CurRayHit.point).z);
+            MoveTheBall(transform.InverseTransformPoint(eventData.CurRayHit.point).y);
         }
 
         public void MLOnEndDrag(MLEventData eventData)
         {
-            //Also not convinced I need this
+            /*Needs to:
+             * Turn the curser back on
+             */
         }
         #endregion
 

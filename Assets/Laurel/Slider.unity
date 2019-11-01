@@ -471,6 +471,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Capsule
       objectReference: {fileID: 0}
+    - target: {fileID: 2404086701368457403, guid: b2b09e5317fcc1c498d3aab5f89f0f93,
+        type: 3}
+      propertyPath: m_TagString
+      value: ARUI
+      objectReference: {fileID: 0}
     - target: {fileID: 2404086701368457396, guid: b2b09e5317fcc1c498d3aab5f89f0f93,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -535,6 +540,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2404086701368457401, guid: b2b09e5317fcc1c498d3aab5f89f0f93,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2b09e5317fcc1c498d3aab5f89f0f93, type: 3}
