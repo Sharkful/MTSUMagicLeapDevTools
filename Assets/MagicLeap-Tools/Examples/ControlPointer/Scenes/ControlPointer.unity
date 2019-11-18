@@ -234,6 +234,30 @@ Transform:
   m_Father: {fileID: 1176637950}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &196895768 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6481229157719459590, guid: 222bd9546a0294a4186782eaa063a280,
+    type: 3}
+  m_PrefabInstance: {fileID: 7235541112442523340}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3172b67f5df947d43a296289664c709b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &196895771 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7235541112672725365, guid: 222bd9546a0294a4186782eaa063a280,
+    type: 3}
+  m_PrefabInstance: {fileID: 7235541112442523340}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 068b900c1e26be24cb420dda4369b351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &272412249
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -358,67 +382,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block
       objectReference: {fileID: 0}
-    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: OnTargetEnter.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: staticWhileIdle
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: faceWhileDragging
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: matchWallWhileDragging
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: kinematicWhileIdle
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: draggable
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: OnTargetEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: OnTargetEnter.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6430293851174252506, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: m_IsKinematic
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6430293851174252507, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: strength
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 6430293851174252508, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 512e9a0865a72984ab413cea005e1539, type: 2}
-    - target: {fileID: 6430293851174252509, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 13400000, guid: 040e44f7ec445c043a0b24c261650756,
-        type: 2}
     - target: {fileID: 6430293851174252510, guid: d0b119d3bcdc57640acca73954a9d047,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -489,6 +452,67 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.22821899
       objectReference: {fileID: 0}
+    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: OnTargetEnter.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: staticWhileIdle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: faceWhileDragging
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: matchWallWhileDragging
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: kinematicWhileIdle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: draggable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: OnTargetEnter.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: OnTargetEnter.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430293851174252506, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430293851174252507, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: strength
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430293851174252508, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 512e9a0865a72984ab413cea005e1539, type: 2}
+    - target: {fileID: 6430293851174252509, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 040e44f7ec445c043a0b24c261650756,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0b119d3bcdc57640acca73954a9d047, type: 3}
 --- !u!4 &450367719 stripped
@@ -621,47 +645,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block
       objectReference: {fileID: 0}
-    - target: {fileID: 6430293851174252486, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: pointerReceiver
-      value: 
-      objectReference: {fileID: 1766435619}
-    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: staticWhileIdle
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: faceWhileDragging
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: matchWallWhileDragging
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: kinematicWhileIdle
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6430293851174252506, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: m_Drag
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6430293851174252508, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 512e9a0865a72984ab413cea005e1539, type: 2}
-    - target: {fileID: 6430293851174252509, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 13400000, guid: 040e44f7ec445c043a0b24c261650756,
-        type: 2}
     - target: {fileID: 6430293851174252510, guid: d0b119d3bcdc57640acca73954a9d047,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -717,6 +700,47 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: staticWhileIdle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: faceWhileDragging
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: matchWallWhileDragging
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: kinematicWhileIdle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430293851174252506, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: m_Drag
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430293851174252508, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 512e9a0865a72984ab413cea005e1539, type: 2}
+    - target: {fileID: 6430293851174252509, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 040e44f7ec445c043a0b24c261650756,
+        type: 2}
+    - target: {fileID: 6430293851174252486, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: pointerReceiver
+      value: 
+      objectReference: {fileID: 1766435619}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0b119d3bcdc57640acca73954a9d047, type: 3}
 --- !u!4 &556979470 stripped
@@ -836,52 +860,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block
       objectReference: {fileID: 0}
-    - target: {fileID: 6430293851174252486, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: pointerReceiver
-      value: 
-      objectReference: {fileID: 920404576}
-    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: staticWhileIdle
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: draggable
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: kinematicWhileIdle
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: faceWhileDragging
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: matchWallWhileDragging
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6430293851174252506, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: m_Drag
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6430293851174252508, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 6a2160e5bbe1f794b80972eac06a3119, type: 2}
-    - target: {fileID: 6430293851174252509, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 13400000, guid: 040e44f7ec445c043a0b24c261650756,
-        type: 2}
     - target: {fileID: 6430293851174252510, guid: d0b119d3bcdc57640acca73954a9d047,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -952,6 +930,52 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.0762
       objectReference: {fileID: 0}
+    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: staticWhileIdle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: draggable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: kinematicWhileIdle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: faceWhileDragging
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: matchWallWhileDragging
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430293851174252506, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: m_Drag
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430293851174252508, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6a2160e5bbe1f794b80972eac06a3119, type: 2}
+    - target: {fileID: 6430293851174252509, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 040e44f7ec445c043a0b24c261650756,
+        type: 2}
+    - target: {fileID: 6430293851174252486, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: pointerReceiver
+      value: 
+      objectReference: {fileID: 920404576}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0b119d3bcdc57640acca73954a9d047, type: 3}
 --- !u!4 &920404569 stripped
@@ -1013,56 +1037,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block
       objectReference: {fileID: 0}
-    - target: {fileID: 6430293851174252486, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: pointerReceiver
-      value: 
-      objectReference: {fileID: 1810558773}
-    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: staticWhileIdle
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: draggable
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: kinematicWhileIdle
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: faceWhileDragging
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: matchWallWhileDragging
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6430293851174252506, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: m_UseGravity
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6430293851174252506, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: m_Drag
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6430293851174252508, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: b4fd6612da8d37045879a8832f7593dc, type: 2}
-    - target: {fileID: 6430293851174252509, guid: d0b119d3bcdc57640acca73954a9d047,
-        type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 6430293851174252510, guid: d0b119d3bcdc57640acca73954a9d047,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1118,6 +1092,56 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: staticWhileIdle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: draggable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: kinematicWhileIdle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: faceWhileDragging
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430293851174252504, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: matchWallWhileDragging
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430293851174252506, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430293851174252506, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: m_Drag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430293851174252508, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b4fd6612da8d37045879a8832f7593dc, type: 2}
+    - target: {fileID: 6430293851174252509, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430293851174252486, guid: d0b119d3bcdc57640acca73954a9d047,
+        type: 3}
+      propertyPath: pointerReceiver
+      value: 
+      objectReference: {fileID: 1810558773}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0b119d3bcdc57640acca73954a9d047, type: 3}
 --- !u!4 &925464448 stripped
@@ -1407,7 +1431,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1969205888}
-  m_LocalRotation: {x: -0.03445507, y: 0.07433183, z: 0.0025697555, w: 0.9966349}
+  m_LocalRotation: {x: -0, y: 0.074376225, z: -0, w: 0.9972303}
   m_LocalPosition: {x: 0.15, y: 0.07, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1505,8 +1529,6 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: e6d877a61727f4697824be49474f95cf, type: 3}
     m_FontSize: 1
@@ -1734,5 +1756,35 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7235541112672725365, guid: 222bd9546a0294a4186782eaa063a280,
+        type: 3}
+      propertyPath: inputDriver
+      value: 
+      objectReference: {fileID: 196895768}
+    - target: {fileID: 7235541112672725365, guid: 222bd9546a0294a4186782eaa063a280,
+        type: 3}
+      propertyPath: layerMask.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 7235541112672725360, guid: 222bd9546a0294a4186782eaa063a280,
+        type: 3}
+      propertyPath: controlInput
+      value: 
+      objectReference: {fileID: 1366811072}
+    - target: {fileID: 7235541112672725361, guid: 222bd9546a0294a4186782eaa063a280,
+        type: 3}
+      propertyPath: controlInput
+      value: 
+      objectReference: {fileID: 1366811072}
+    - target: {fileID: 7235541112672725361, guid: 222bd9546a0294a4186782eaa063a280,
+        type: 3}
+      propertyPath: pointer
+      value: 
+      objectReference: {fileID: 196895771}
+    - target: {fileID: 133811597517664741, guid: 222bd9546a0294a4186782eaa063a280,
+        type: 3}
+      propertyPath: pointer
+      value: 
+      objectReference: {fileID: 196895771}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 222bd9546a0294a4186782eaa063a280, type: 3}
